@@ -7,7 +7,7 @@ use_small_heuristics = "Max" # Reduces vertical sprawl
 enum_discrim_align_threshold = 20 # Aligns '=' in enums
 reorder_imports = true            # Alphabetical imports
 reorder_modules = true            # Alphabetical modules
-type_alias_align_threshold = 20   # Aligns '=' in type aliases
+# type_alias_align_threshold = 20   # Aligns '=' in type aliases
 
 # --- Strictness ---
 comment_width = 80                # Wrap comments at 80 chars
