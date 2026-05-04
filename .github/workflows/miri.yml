@@ -1,0 +1,14 @@
+name: Miri
+on:
+  schedule: [{ cron: '0 0 * * *' }] # Run nightly to detect regressions
+  pull_request: # Run on PRs that touch unsafe code
+
+jobs:
+  miri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+        with: { components: "miri" }
+      - name: Run Miri
+        run: cargo miri test

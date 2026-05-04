@@ -1,0 +1,82 @@
+[package]
+# --- Basic Metadata ---
+authors = ["Your Name <you@example.com>"]
+description = "A comprehensive description of your high-quality Rust project."
+edition = "2021"
+homepage = "https://github.com/username/project"
+keywords = ["api", "tool", "utility"] # Max 5 keywords
+license = "MIT OR Apache-2.0"
+name = "my-project-template"
+readme = "README.md"
+repository = "https://github.com/username/project"
+version = "0.1.0"
+
+# --- Advanced Packaging ---
+# build = "build.rs"             # Path to a build script (uncomment if needed)
+categories = ["development-tools"] # See https://crates.io/category_slugs
+exclude = ["/.github", "/tests/data"] # Files to exclude from the .crate file
+include = ["/src", "Cargo.toml", "LICENSE*"] # Files to include explicitly
+# links = "library_name"         # Used for linking to native C libraries
+publish = true                   # Set to false to prevent accidental crates.io upload
+rust-version = "1.74"            # Minimum supported Rust version (MSRV)
+
+[lib]
+crate-type = ["rlib", "cdylib"]  # Standard library and C-compatible dynamic library
+name = "my_project_lib"          # Internal name for the library
+test = true                      # Enable testing for the library
+doctest = true                   # Enable documentation tests
+
+[[bin]]
+name = "my-project-cli"          # Name of the resulting binary
+path = "src/main.rs"             # Path to the entry point
+bench = true                     # Enable benchmarking for this binary
+
+# --- Workspace Configuration (Optional) ---
+# [workspace]
+# members = ["crates/*"]         # For multi-crate mono-repos
+# resolver = "2"                 # Essential for modern dependency resolution
+
+# --- Lints (Imported from previous step) ---
+[lints]
+workspace = true                 # Inherit from workspace if applicable, or paste table here
+
+# --- Profile Configurations ---
+# Optimized for high-performance and small binaries
+
+[profile.dev]
+debug = true                     # Include full debug symbols
+incremental = true               # Faster recompilation during development
+opt-level = 0                    # No optimization for fastest build times
+panic = "unwind"                 # Standard stack unwinding
+
+[profile.release]
+codegen-units = 1                # Maximize optimization at the cost of compile time
+debug = false                    # No debug symbols in production
+incremental = false              # Disable incremental for better optimization
+lto = "fat"                      # Full Link Time Optimization (best performance)
+opt-level = 3                    # Maximum speed optimization
+panic = "abort"                  # Reduces binary size and improves performance
+strip = "symbols"                # Automatically strip symbols (removes need for 'strip' command)
+
+[profile.bench]
+codegen-units = 1
+debug = false
+lto = "thin"                     # Balanced LTO for faster bench cycles
+opt-level = 3
+
+[profile.test]
+debug = true
+opt-level = 1                    # Slight optimization to speed up test execution
+
+# --- Feature Flags ---
+[features]
+default = ["std"]                # Enable 'std' by default
+full = ["network", "storage"]    # Convenient "catch-all" feature
+network = []                     # Optional networking capability
+storage = []                     # Optional storage capability
+std = []                         # Standard library support (useful for no_std crates)
+
+# --- Metadata for Tools ---
+[package.metadata.docs.rs]
+all-features = true              # Ensure docs.rs builds documentation for all features
+rustdoc-args = ["--cfg", "docsrs"] # Allows styling/tagging features in documentation

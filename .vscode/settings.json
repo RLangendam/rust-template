@@ -1,0 +1,26 @@
+{
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"
+    // --- General Editor Settings ---
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.clippy": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.semanticHighlighting.enabled": true,
+    // --- Rust Analyzer Core Settings ---
+    "rust-analyzer.cargo.features": "all",
+    "rust-analyzer.check.command": "clippy", // Run clippy instead of cargo check
+    "rust-analyzer.check.allTargets": true,
+    // --- Inlay Hints (Visual Quality) ---
+    "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+    "rust-analyzer.inlayHints.closingBraceHints.minLines": 10,
+    "rust-analyzer.inlayHints.typeHints.hideNamedTempTypes": false,
+    // --- Hover & Documentation ---
+    "rust-analyzer.hover.actions.references.enable": true,
+    "rust-analyzer.hover.documentation.enable": true,
+    // --- External Tools ---
+    "rust-analyzer.rustfmt.extraArgs": [
+        "--edition",
+        "2021"
+    ]
+}

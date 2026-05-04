@@ -1,0 +1,6 @@
+# Force Unix line endings for all text files (Best practice for Rust)
+* text=auto eol=lf
+
+# Ensure TOML and Rust files are handled correctly
+*.rs text diff=rust
+*.toml text
