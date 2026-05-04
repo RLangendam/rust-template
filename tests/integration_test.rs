@@ -1,7 +1,5 @@
-use rust_template;
-
+//! Check a trivial summation
 #[test]
 fn test_add_integration() {
-    // This tests the library as a user would see it
-    assert_eq!(rust_template::add(1, 1), 2);
+    assert_eq!(my_project_lib::add(1, 1), 2);
 }

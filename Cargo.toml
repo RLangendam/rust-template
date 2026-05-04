@@ -37,8 +37,77 @@ bench = true                     # Enable benchmarking for this binary
 # resolver = "2"                 # Essential for modern dependency resolution
 
 # --- Lints (Imported from previous step) ---
-[lints]
-workspace = true                 # Inherit from workspace if applicable, or paste table here
+# [lints]
+# workspace = true                 # Inherit from workspace if applicable, or paste table here
+
+[lints.rust]
+# Standard Rust compiler lints
+unsafe_code = "deny"
+missing_docs = "warn"
+unreachable_pub = "warn"
+unused_qualifications = "warn"
+
+[lints.clippy]
+# 1. Enable major strict groups
+all = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+# nursery = { level = "deny", priority = -1 }
+# restriction = { level = "deny", priority = -1 }
+
+# 2. EXPLICIT LINT OVERRIDES (Alphabetical)
+# We comment out lints that are conflicting or uncommon/restrictive for most projects.
+
+# absolute_paths = "deny"             # Requires all paths to be absolute (too verbose)
+alloc_instead_of_core = "deny"        # Use core over alloc where possible
+allow_attributes = "deny"             # Prefer #[expect] over #[allow] (requires nightly/latest)
+# arithmetic_side_effects = "deny"    # Warns on every '+' or '-'; use only for high-security math
+as_conversions = "deny"               # Use .into() or .try_into() instead of 'as'
+assertions_on_result_states = "deny"  # Prevents assert!(res.is_ok()) in favor of matches
+# blank_line_after_outer_attr = "deny" # Highly subjective formatting
+# default_numeric_fallback = "deny"   # Forces explicit types for every integer literal
+deref_by_slicing = "deny"             # Prevents unnecessary &v[..]
+else_if_without_else = "deny"         # Ensures exhaustive 'if' chains
+enum_glob_use = "deny"                # Prevents 'use MyEnum::*'
+# exhaustive_enums = "deny"           # Forces all enums to be non-exhaustive (annoying for local crates)
+# exhaustive_structs = "deny"         # Forces all structs to be non-exhaustive
+exit = "deny"                         # Prevents use of std::process::exit
+expect_used = "deny"                  # Prevents .expect() - use proper error handling
+# float_arithmetic = "deny"           # Prevents floating point math (use for strict deterministic envs)
+float_cmp_const = "deny"              # Prevents equality checks on floats
+# host_endian_is_wide = "deny"        # Specific to cross-platform bit manipulation
+if_then_some_else_none = "deny"       # Suggests .then_some() for Option mapping
+# implicit_return = "deny"            # Forces 'return' keyword everywhere (anti-idiomatic in Rust)
+indexing_slicing = "deny"             # Prevents arr[i] - use .get() to avoid panics
+inline_asm_x86_att_syntax = "deny"    # Enforces Intel syntax for ASM
+# integer_division = "deny"           # Warns on '5 / 2' (useful if you fear losing precision)
+# mod_module_files = "deny"           # Forces specific file structure (mod.rs vs folder.rs)
+missing_assert_message = "deny"       # Ensures assert!(condition, "Message")
+missing_docs_in_private_items = "deny" # Strict documentation requirements
+missing_enforced_import_renames = "deny" # Ensures consistent naming for specific imports
+# missing_inline_in_public_items = "deny" # Performance-related, but adds boilerplate
+# modulo_arithmetic = "deny"          # Modulo on signed ints can be tricky
+# multiple_crate_versions = "deny"    # Hard to maintain in large dependency trees
+multiple_unsafe_ops_per_block = "deny" # One unsafe operation per 'unsafe' block
+# must_use_candidate = "deny"         # Suggests #[must_use] on almost everything (noisy)
+# non_ascii_literal = "deny"          # Prevents non-ASCII chars in strings
+# panic = "deny"                      # Prevents any code that could panic
+# print_stderr = "deny"              # Use logging crates instead of printing
+# print_stdout = "deny"              # Use logging crates instead of printing
+# question_mark_used = "deny"         # Some prefer explicit match over '?' (rare)
+# self_named_module_files = "deny"     # Conflict with mod_module_files
+# shadow_reuse = "deny"               # Prevents 'let x = x.into()'
+# shadow_same = "deny"                # Prevents 'let x = x'
+# shadow_unrelated = "deny"           # Prevents reuse of variable names in same scope
+# single_char_lifetime_names = "deny" # Subjective; some like 'a, others like 'src
+str_to_string = "deny"                # Suggests .to_owned() or Display instead
+# std_instead_of_core = "deny"        # For no_std projects
+# std_instead_of_alloc = "deny"       # For no_std projects
+# todo = "deny"                       # Prevents shipping code with TODOs
+# unnecessary_wraps = "deny"          # Sometimes wrapping in Option/Result is intended for API stability
+unreachable_pub = "deny"              # Enforces 'pub(crate)' for internal items
+unwrap_used = "deny"                  # Prevents .unwrap()
+# use_debug = "deny"                  # Prevents debug formatting in production
+# wild_ref_pattern = "deny"           # Forces naming every variable in a match
 
 # --- Profile Configurations ---
 # Optimized for high-performance and small binaries

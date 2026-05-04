@@ -1,4 +1,5 @@
-use rust_template::add;
+//! A simple benchmark example
+use my_project_lib::add;
 use std::hint::black_box;
 
 fn main() {

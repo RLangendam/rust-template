@@ -9,6 +9,6 @@
 /// let res = my_project_lib::add(2, 2);
 /// assert_eq!(res, 4);
 /// ```
-pub fn add(left: usize, right: usize) -> usize {
+#[must_use] pub const fn add(left: usize, right: usize) -> usize {
     left + right
 }
