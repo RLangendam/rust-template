@@ -1,14 +1,27 @@
 name: Miri
 on:
-  schedule: [{ cron: '0 0 * * *' }] # Run nightly to detect regressions
-  pull_request: # Run on PRs that touch unsafe code
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
 
 jobs:
   miri:
+    name: Miri (Undefined Behavior Detection)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
-        with: { components: "miri" }
+        with:
+          components: miri
+      - uses: Swatinem/rust-cache@v2
+
       - name: Run Miri
-        run: cargo miri test
+        run: cargo +nightly miri test --all-targets --all-features
+        env:
+          MIRIFLAGS: "-Zmiri-strict-provenance"
+
+      - name: Run Miri with Symbolic Alignment Check
+        run: cargo +nightly miri test --all-targets --all-features
+        env:
+          MIRIFLAGS: "-Zmiri-strict-provenance -Zmiri-symbolic-alignment-check"

@@ -1,7 +1,10 @@
 name: CI
 on:
-  push: { branches: [master] }
+  push:
+    branches: [master, develop]
   pull_request:
+    branches: [master, develop]
+  merge_group:
 
 jobs:
   check:
@@ -27,20 +30,60 @@ jobs:
 
   test:
     name: Test Suite
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        rust: [stable, nightly]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@${{ matrix.rust }}
+        with:
+          components: llvm-tools-preview
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@nextest
+      - uses: taiki-e/install-action@cargo-llvm-cov
+      
+      - name: Run Tests & Generate Coverage
+        if: matrix.os == 'ubuntu-latest' && matrix.rust == 'stable'
+        run: cargo llvm-cov nextest --all-features --workspace --lcov --output-path lcov.info
+
+      - name: Run Tests
+        if: ${{ !(matrix.os == 'ubuntu-latest' && matrix.rust == 'stable') }}
+        run: cargo nextest run --all-targets --all-features
+
+      - name: Upload Coverage to Codecov
+        if: matrix.os == 'ubuntu-latest' && matrix.rust == 'stable'
+        uses: codecov/codecov-action@v4
+        with:
+          files: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  miri:
+    name: Miri (Undefined Behavior Detection)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
         with:
-          components: llvm-tools-preview
-      - uses: taiki-e/install-action@nextest
-      - uses: taiki-e/install-action@cargo-llvm-cov
-      
-      - name: Run Tests & Generate Coverage
-        run: cargo llvm-cov nextest --all-features --workspace --lcov --output-path lcov.info
+          components: miri
+      - uses: Swatinem/rust-cache@v2
 
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: lcov.info
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Run Miri
+        run: cargo +nightly miri test --all-targets --all-features
+        env:
+          MIRIFLAGS: "-Zmiri-strict-provenance"
+
+  doc:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Check Documentation
+        run: cargo doc --no-deps --all-features
+        env:
+          RUSTDOCFLAGS: "-D warnings"

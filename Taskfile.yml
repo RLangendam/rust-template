@@ -1,15 +1,113 @@
 version: '3'
 
 tasks:
+  # Quality Gates
   check:
-    desc: Run all quality gates
+    desc: Run all quality gates (format, lint, test)
     cmds:
       - cargo fmt --all -- --check
       - cargo clippy --all-targets --all-features -- -D warnings
-      - cargo test
+      - cargo test --all-targets --all-features
 
+  fmt:
+    desc: Format code
+    cmds:
+      - cargo fmt --all
+
+  lint:
+    desc: Run clippy
+    cmds:
+      - cargo clippy --all-targets --all-features -- -D warnings
+
+  test:
+    desc: Run all tests
+    cmds:
+      - cargo test --all-targets --all-features --verbose
+
+  test:unit:
+    desc: Run unit tests only
+    cmds:
+      - cargo test --lib
+
+  test:integration:
+    desc: Run integration tests only
+    cmds:
+      - cargo test --test '*'
+
+  test:doc:
+    desc: Run documentation tests
+    cmds:
+      - cargo test --doc
+
+  # Unsafe Code & Miri
+  miri:
+    desc: Run Miri to detect undefined behavior (requires nightly)
+    cmds:
+      - cargo miri test --all-targets --all-features
+
+  miri:strict:
+    desc: Run Miri with strict provenance checking (experimental)
+    cmds:
+      - cargo miri test --all-targets --all-features
+    env:
+      MIRIFLAGS: "-Zmiri-strict-provenance -Zmiri-symbolic-alignment-check"
+
+  # Coverage & Profiling
   cov:
     desc: Generate HTML coverage report
     cmds:
-      - cargo llvm-cov --html
-      - xdg-open target/llvm-cov/html/index.html
+      - cargo llvm-cov --html --open
+      - echo "Coverage report opened in browser"
+
+  # Building & Running
+  build:
+    desc: Build debug binary
+    cmds:
+      - cargo build
+
+  build:release:
+    desc: Build optimized release binary
+    cmds:
+      - cargo build --release
+
+  run:
+    desc: Run the CLI
+    cmds:
+      - cargo run --
+
+  # Benchmarking
+  bench:
+    desc: Run benchmarks
+    cmds:
+      - cargo bench --all-targets --all-features
+
+  # Maintenance & Dependencies
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - cargo clean
+
+  update:
+    desc: Update dependencies interactively
+    cmds:
+      - cargo update --aggressive
+
+  outdated:
+    desc: Check for outdated dependencies
+    cmds:
+      - cargo outdated
+
+  audit:
+    desc: Audit dependencies for vulnerabilities
+    cmds:
+      - cargo audit
+
+  machete:
+    desc: Find unused dependencies (requires cargo-machete)
+    cmds:
+      - cargo machete
+
+  expand:
+    desc: Expand macros for debugging (requires cargo-expand)
+    cmds:
+      - cargo expand

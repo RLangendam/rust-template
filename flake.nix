@@ -36,11 +36,24 @@
             rustToolchain
             pkg-config
             openssl
+
+            # Task & Project Management
             go-task
+            just
+
+            # Testing & Coverage
             cargo-nextest
             cargo-llvm-cov
+
+            # Code Quality & Auditing
             cargo-audit
+            cargo-deny
             cargo-expand
+            cargo-machete # Find unused dependencies
+            cargo-update # Interactive dependency updates
+            cargo-edit # Add/remove deps from CLI
+
+            # Utilities
             xdg-utils
           ];
 

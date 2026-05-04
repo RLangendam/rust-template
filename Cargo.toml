@@ -2,6 +2,7 @@
 # --- Basic Metadata ---
 authors = ["Your Name <you@example.com>"]
 description = "A comprehensive description of your high-quality Rust project."
+documentation = "https://docs.rs/my-project-template"
 edition = "2021"
 homepage = "https://github.com/username/project"
 keywords = ["api", "tool", "utility"] # Max 5 keywords
@@ -9,6 +10,7 @@ license = "MIT OR Apache-2.0"
 name = "my-project-template"
 readme = "README.md"
 repository = "https://github.com/username/project"
+rust-version = "1.75"            # Minimum supported Rust version (MSRV)
 version = "0.1.0"
 
 # --- Advanced Packaging ---
@@ -18,7 +20,6 @@ exclude = ["/.github", "/tests/data"] # Files to exclude from the .crate file
 include = ["/src", "Cargo.toml", "LICENSE*"] # Files to include explicitly
 # links = "library_name"         # Used for linking to native C libraries
 publish = true                   # Set to false to prevent accidental crates.io upload
-rust-version = "1.74"            # Minimum supported Rust version (MSRV)
 
 [lib]
 crate-type = ["rlib", "cdylib"]  # Standard library and C-compatible dynamic library
@@ -104,7 +105,6 @@ str_to_string = "deny"                # Suggests .to_owned() or Display instead
 # std_instead_of_alloc = "deny"       # For no_std projects
 # todo = "deny"                       # Prevents shipping code with TODOs
 # unnecessary_wraps = "deny"          # Sometimes wrapping in Option/Result is intended for API stability
-unreachable_pub = "deny"              # Enforces 'pub(crate)' for internal items
 unwrap_used = "deny"                  # Prevents .unwrap()
 # use_debug = "deny"                  # Prevents debug formatting in production
 # wild_ref_pattern = "deny"           # Forces naming every variable in a match
@@ -125,7 +125,7 @@ incremental = false              # Disable incremental for better optimization
 lto = "fat"                      # Full Link Time Optimization (best performance)
 opt-level = 3                    # Maximum speed optimization
 panic = "abort"                  # Reduces binary size and improves performance
-strip = "symbols"                # Automatically strip symbols (removes need for 'strip' command)
+strip = "debuginfo"              # Strip debug info but keep symbols for crash reports
 
 [profile.bench]
 codegen-units = 1

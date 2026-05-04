@@ -1,4 +1,19 @@
 [toolchain]
 channel = "nightly"
-components = ["rustfmt", "clippy", "rust-analyzer", "llvm-tools-preview"]
-targets = ["x86_64-unknown-linux-gnu", "aarch64-apple-darwin"]
+components = [
+    "rustfmt",
+    "clippy",
+    "rust-analyzer",
+    "llvm-tools-preview",
+    "miri",
+    "rust-src",
+]
+targets = [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-apple-darwin",
+    "wasm32-unknown-unknown",
+]
+
+# NOTE: To pin a specific nightly version, use:
+# channel = "nightly-YYYY-MM-DD"
+# Check available versions at: https://rust-lang.github.io/rustup-components-history/

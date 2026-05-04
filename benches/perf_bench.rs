@@ -1,6 +1,7 @@
 //! A simple benchmark example
-use my_project_lib::add;
 use std::hint::black_box;
+
+use my_project_lib::add;
 
 fn main() {
     // Basic manual bench loop
