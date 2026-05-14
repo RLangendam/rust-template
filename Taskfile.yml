@@ -111,3 +111,19 @@ tasks:
     desc: Expand macros for debugging (requires cargo-expand)
     cmds:
       - cargo expand
+
+  # Development Tools
+  watch:
+    desc: Watch for file changes and run tests (requires cargo-watch)
+    cmds:
+      - cargo watch -x test
+
+  watch:check:
+    desc: Watch for file changes and run checks (requires cargo-watch)
+    cmds:
+      - cargo watch -x check
+
+  bacon:
+    desc: Run bacon for background code checking (requires bacon)
+    cmds:
+      - bacon

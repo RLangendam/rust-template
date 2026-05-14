@@ -4,7 +4,7 @@ A high-quality, production-ready Rust project template with comprehensive toolin
 
 ## Features
 
-- **Modern Rust Setup**: Edition 2021 with MSRV 1.74
+- **Modern Rust Setup**: Edition 2021 with MSRV 1.75
 - **Dual Build Targets**: Library (rlib + cdylib) and CLI binary
 - **Development Shell**: Nix flake for reproducible development environments
 - **Testing Infrastructure**: Unit tests, integration tests, and documentation tests
@@ -13,6 +13,8 @@ A high-quality, production-ready Rust project template with comprehensive toolin
 - **Benchmarking**: Built-in performance benchmarking support
 - **Task Automation**: Taskfile for common workflows
 - **Security Focused**: Denies unsafe code by default with configurable linting rules
+- **Fast Linking**: Mold linker for significantly faster compilation
+- **Development Tools**: Cargo-watch for file watching, Bacon for background checking
 
 ## Quick Start
 
@@ -34,6 +36,29 @@ cargo build --release      # Release build with optimizations
 cargo run                  # Run the CLI binary
 cargo run -- [ARGS]       # Run with arguments
 ```
+
+### Examples
+
+The project includes example programs to demonstrate library usage:
+
+```bash
+# List all available examples
+cargo run --example
+
+# Run the basic usage example
+cargo run --example basic_usage
+
+# Build all examples
+cargo build --examples
+
+# Build a specific example
+cargo build --example basic_usage
+```
+
+The `basic_usage` example demonstrates:
+- How to use the library's `add` function
+- Compile-time evaluation with const functions
+- Basic Rust project structure
 
 ### Testing
 
@@ -64,6 +89,8 @@ This runs `cargo llvm-cov --html` and opens the report in your browser.
 ├── src/
 │   ├── lib.rs           # Library entry point
 │   └── main.rs          # CLI binary entry point
+├── examples/
+│   └── basic_usage.rs   # Example demonstrating library usage
 ├── tests/
 │   └── integration_test.rs
 ├── benches/
@@ -99,6 +126,44 @@ Install the following tools manually:
 - `go-task` - Task runner
 
 Then use `task` commands as above.
+
+## Development Tools
+
+This template includes several development tools for improved productivity:
+
+### Mold Linker
+
+[Mold](https://github.com/rui314/mold) is a modern linker that significantly speeds up compilation:
+
+- **Faster linking**: 5-10x faster than default linker
+- **Automatic configuration**: Enabled via `RUSTFLAGS` in the Nix environment
+- **Cross-platform**: Works on Linux, macOS, and Windows
+
+### Cargo Watch
+
+[`cargo-watch`](https://github.com/watchexec/cargo-watch) automatically runs commands when files change:
+
+```bash
+# Run tests on file changes
+task watch
+
+# Run checks on file changes
+task watch:check
+```
+
+### Bacon
+
+[`bacon`](https://github.com/Canop/bacon) provides background code checking with a nice TUI:
+
+```bash
+# Start background checking
+task bacon
+```
+
+Features:
+- Real-time feedback as you code
+- Clear error display with context
+- Fast incremental checking
 
 ## Available Commands
 

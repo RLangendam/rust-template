@@ -24,9 +24,9 @@ jobs:
         run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Audit Dependencies
-        uses: rustsec/audit-check-action@v2
-        with: 
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check advisories
 
   test:
     name: Test Suite

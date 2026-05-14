@@ -53,6 +53,13 @@
             cargo-update # Interactive dependency updates
             cargo-edit # Add/remove deps from CLI
 
+            # Development Tools
+            cargo-watch # File watching for development
+            bacon # Background rust code checker
+
+            # Linker (mold for faster linking)
+            mold # Modern linker for faster builds
+
             # Utilities
             xdg-utils
           ];
@@ -60,6 +67,8 @@
           # optional but cleaner than manual export
           env = {
             PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+            # Use mold as the linker for faster builds
+            RUSTFLAGS = "-C link-arg=-fuse-ld=mold";
           };
         };
       }
