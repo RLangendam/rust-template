@@ -53,6 +53,22 @@ cargo fmt --all -- --check
 # Run linter
 cargo clippy --all-targets --all-features -- -D warnings
 ```
+### Pre-commit hooks
+
+This repository includes a `.pre-commit-config.yaml` to run formatting and linting checks before commits. To enable pre-commit hooks locally:
+
+```bash
+# enter the Nix development shell for reproducible tooling
+nix develop
+pip install --user pre-commit
+pre-commit install
+```
+
+You can run the hooks on all files with:
+
+```bash
+pre-commit run --all-files
+```
 
 ### 3. Test Unsafe Code (if applicable)
 
