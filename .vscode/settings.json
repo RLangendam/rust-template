@@ -1,5 +1,5 @@
 {
-    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
     // --- General Editor Settings ---
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
