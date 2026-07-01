@@ -1,0 +1,17 @@
+[package]
+name = "fuzz"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libfuzzer-sys = "0.4"
+my_project_lib = { path = "../" }
+
+[[bin]]
+name = "basic"
+path = "fuzz_targets/basic.rs"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
