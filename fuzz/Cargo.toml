@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 libfuzzer-sys = "0.4"
-my_project_lib = { path = "../" }
+my_project_lib = { path = "../", package = "my-project-template" }
 
 [[bin]]
 name = "basic"

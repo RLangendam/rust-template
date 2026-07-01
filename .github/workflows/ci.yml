@@ -23,10 +23,10 @@ jobs:
       - name: Clippy (Strict)
         run: cargo clippy --all-targets --all-features -- -D warnings
 
-      - name: Audit Dependencies
+      - name: Audit Dependencies (cargo-deny)
         uses: EmbarkStudios/cargo-deny-action@v2
         with:
-          command: check advisories
+          command: check
 
   test:
     name: Test Suite

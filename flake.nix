@@ -78,6 +78,15 @@
             # Use mold as the linker for faster builds
             RUSTFLAGS = "-C link-arg=-fuse-ld=mold";
           };
+
+          shellHook = ''
+            # Automatically install pre-commit git hooks if inside a git repository
+            if [ -d .git ] && command -v pre-commit >/dev/null 2>&1; then
+              pre-commit install --install-hooks >/dev/null
+              echo "✅ Pre-commit hooks checked/setup successfully!"
+            fi
+            echo "🦀 Welcome to the Rust template development environment. Run 'task check' to run all validation checks."
+          '';
         };
       }
     );

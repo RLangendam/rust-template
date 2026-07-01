@@ -1,13 +1,14 @@
 # --- Formatting ---
 edition = "2021"
+unstable_features = true
 newline_style = "Unix"
-use_small_heuristics = "Max"     # Reduces vertical sprawl
+use_small_heuristics = "Max" # Reduces vertical sprawl
 hard_tabs = false
 tab_spaces = 4
 
 # --- Imports ---
-reorder_imports = true           # Alphabetical imports
-reorder_modules = true           # Alphabetical modules
+reorder_imports = true             # Alphabetical imports
+reorder_modules = true             # Alphabetical modules
 group_imports = "StdExternalCrate"
 
 # --- Item Layout ---
@@ -15,17 +16,17 @@ enum_discrim_align_threshold = 20 # Aligns '=' in enums
 # type_alias_align_threshold = 20   # Aligns '=' in type aliases
 
 # --- Strictness & Comments ---
-comment_width = 100               # Wrap comments at 100 chars
+comment_width = 100                # Wrap comments at 100 chars
 format_code_in_doc_comments = true
 normalize_comments = true
 normalize_doc_attributes = true
-wrap_comments = true              # Automatically format comments
-force_multiline_blocks = true     # Forces braces on new lines
-match_block_trailing_comma = true # Ensures diff-friendly match arms
+wrap_comments = true               # Automatically format comments
+force_multiline_blocks = true      # Forces braces on new lines
+match_block_trailing_comma = true  # Ensures diff-friendly match arms
 
 # --- Function Formatting ---
-fn_single_line = false            # Don't compress simple fns to one line
-format_strings = true             # Format string concatenation
+fn_single_line = false # Don't compress simple fns to one line
+format_strings = true  # Format string concatenation
 
 # --- Spacing ---
 space_after_colon = true
