@@ -30,4 +30,3 @@ format_strings = true             # Format string concatenation
 # --- Spacing ---
 space_after_colon = true
 space_before_colon = false
-

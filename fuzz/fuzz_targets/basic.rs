@@ -1,8 +1,8 @@
 #![no_main]
 
-use std::convert::TryInto;
 use libfuzzer_sys::fuzz_target;
 use my_project_lib::add;
+use std::convert::TryInto;
 
 fuzz_target!(|data: &[u8]| {
     // If we have at least 16 bytes, interpret the first 16 as two u64 values
