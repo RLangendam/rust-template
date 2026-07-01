@@ -52,10 +52,13 @@
             cargo-machete # Find unused dependencies
             cargo-update # Interactive dependency updates
             cargo-edit # Add/remove deps from CLI
+            cargo-udeps
+            cargo-geiger
 
             # Development Tools
             cargo-watch # File watching for development
             bacon # Background rust code checker
+            pre-commit
 
             # Linker (mold for faster linking)
             mold # Modern linker for faster builds

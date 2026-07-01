@@ -112,6 +112,16 @@ tasks:
     cmds:
       - cargo expand
 
+  udeps:
+    desc: Detect unused dependencies (requires cargo-udeps)
+    cmds:
+      - cargo udeps -q
+
+  geiger:
+    desc: Scan crate for unsafe usage (requires cargo-geiger)
+    cmds:
+      - cargo geiger --output-format text
+
   # Development Tools
   watch:
     desc: Watch for file changes and run tests (requires cargo-watch)

@@ -2,6 +2,10 @@
 //!
 //! A brief explanation of the library for `rustdoc`.
 
+#![deny(clippy::all)]
+#![warn(clippy::pedantic)]
+#![allow(clippy::module_name_repetitions)]
+
 /// Adds two numbers.
 ///
 /// # Examples

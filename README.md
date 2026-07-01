@@ -114,6 +114,22 @@ nix develop
 # Within the environment, run tasks
 task check              # Run all quality gates
 task cov                # Generate coverage report
+
+### Developer Tools Added
+
+This template now includes extra developer-quality tools and integrations:
+
+- **Pre-commit hooks**: A `.pre-commit-config.yaml` file is included. Install with:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+- **Unused dependencies**: Use `task udeps` to run `cargo udeps` and detect unused dependencies.
+- **Unsafe usage scan**: Use `task geiger` to run `cargo geiger` and get a report of `unsafe` blocks.
+
+See `Taskfile.yml` for the exact commands. These are available inside the Nix development shell so contributors get reproducible tooling.
 ```
 
 ### Without Nix
