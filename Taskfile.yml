@@ -122,6 +122,28 @@ tasks:
     cmds:
       - cargo geiger --output-format text
 
+  fuzz:init:
+    desc: Initialize fuzz scaffolding (requires cargo-fuzz)
+    cmds:
+      - bash -lc "cargo install cargo-fuzz --locked || true"
+      - echo "Run 'cargo fuzz add <target>' inside a nix dev shell to add targets"
+
+  fuzz:run:
+    desc: Run a fuzz target (requires cargo-fuzz)
+    cmds:
+      - bash -lc "cargo fuzz run basic -- -runs=100"
+
+  sbom:
+    desc: Generate SBOM using Syft (requires syft)
+    cmds:
+      - bash -lc "syft . -o json > sbom.json && echo 'SBOM written to sbom.json'"
+
+  release:
+    desc: Create a release using cargo-release
+    cmds:
+      - bash -lc "cargo install cargo-release --locked || true"
+      - bash -lc "cargo release patch --no-push"
+
   # Development Tools
   watch:
     desc: Watch for file changes and run tests (requires cargo-watch)

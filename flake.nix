@@ -55,6 +55,11 @@
             cargo-udeps
             cargo-geiger
 
+            # Fuzzing, SBOM & Release tools
+            cargo-fuzz
+            syft
+            cargo-release
+
             # Development Tools
             cargo-watch # File watching for development
             bacon # Background rust code checker
