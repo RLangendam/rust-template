@@ -24,7 +24,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install cargo tools (fast binary downloads)
-        uses: taiki-e/install-action@v2.85.4
+        uses: taiki-e/install-action@v2.87.1
         with:
           tool: cargo-deny,cargo-udeps,cargo-geiger
 
